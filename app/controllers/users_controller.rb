@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :set_user, only: %i[show destroy]
+	before_action :set_user, only: %i[show destroy update]
 	before_action :authenticate_request, except: %i[create]
     
     def index 
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     end
 
     def show  
-    	render json: @users, status: :ok
+    	render json: @user, status: :ok
     end
 
 
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     end
 
     def update 
-    	@user = User.update(user_params)
+    	@user.update(user_params)
     	if @user.save 
     		render json: @user, status: :updated  
     	else 
